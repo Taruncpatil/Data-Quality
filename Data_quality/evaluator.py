@@ -42,26 +42,29 @@ def check_ranges(data):
 def evaluate_data_quality(data):
     checks = []
 
-    checks.append(check_required_fields(data))
+    checks.append(("missing", check_required_fields(data)))
 
     if "timestamp" in data:
-        checks.append(check_timestamp(data["timestamp"]))
-        checks.append(check_late_arriving_data(data["timestamp"]))
+        checks.append(("timestamp", check_timestamp(data["timestamp"])))
+        checks.append(("late", check_late_arriving_data(data["timestamp"])))
 
-    checks.append(check_duplicate(data))
-    checks.append(check_ranges(data))
+    checks.append(("duplicate", check_duplicate(data)))
+    checks.append(("range", check_ranges(data)))
 
-    for result, message in checks:
+    for status, (result, message) in checks:
         if not result:
             return {
                 "valid": False,
-                "reason": message
+                "quality_status": status,
+                "quality_reason": message
             }
 
     return {
         "valid": True,
-        "reason": "Data passed all quality checks"
+        "quality_status": "valid",
+        "quality_reason": "Data passed all quality checks"
     }
+
 
 
 

@@ -15,13 +15,16 @@ def ingest_data():
     if not quality_result["valid"]:
         return jsonify({
             "status": "rejected",
-            "reason": quality_result["reason"]
+            "quality_status": quality_result["quality_status"],
+            "quality_reason": quality_result["quality_reason"]
         }), 400
 
     return jsonify({
         "status": "accepted",
-        "message": "Data passed quality checks"
+        "quality_status": quality_result["quality_status"],
+        "quality_reason": quality_result["quality_reason"]
     }), 200
+
 
 
 
