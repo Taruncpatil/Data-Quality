@@ -6,6 +6,8 @@ from Data_quality.rules import (
 )
 from datetime import datetime, timezone
 from Data_quality.rules import MAX_ALLOWED_DELAY_SECONDS
+from utils.duplicate_tracker import is_duplicate
+
 
 def check_required_fields(data):
     missing = []
@@ -46,6 +48,7 @@ def evaluate_data_quality(data):
         checks.append(check_timestamp(data["timestamp"]))
         checks.append(check_late_arriving_data(data["timestamp"]))
 
+    checks.append(check_duplicate(data))
     checks.append(check_ranges(data))
 
     for result, message in checks:
@@ -59,6 +62,7 @@ def evaluate_data_quality(data):
         "valid": True,
         "reason": "Data passed all quality checks"
     }
+
 
 
 def check_late_arriving_data(timestamp_str):
@@ -75,6 +79,16 @@ def check_late_arriving_data(timestamp_str):
 
     except Exception:
         return False, "Invalid timestamp format"
+    
+def check_duplicate(data):
+    device_id = data.get("device_id")
+    timestamp = data.get("timestamp")
+
+    if is_duplicate(device_id, timestamp):
+        return False, "Duplicate data detected"
+
+    return True, "Not a duplicate"
+
 
 
 
