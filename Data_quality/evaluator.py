@@ -1,11 +1,11 @@
 from datetime import datetime
-from Data_quality.rules import (
+from data_quality.rules import (
     REQUIRED_FIELDS,
     TEMPERATURE_RANGE,
     HUMIDITY_RANGE
 )
 from datetime import datetime, timezone
-from Data_quality.rules import MAX_ALLOWED_DELAY_SECONDS
+from data_quality.rules import MAX_ALLOWED_DELAY_SECONDS
 from utils.duplicate_tracker import is_duplicate
 
 

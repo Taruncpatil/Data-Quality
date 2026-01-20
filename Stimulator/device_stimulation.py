@@ -3,7 +3,7 @@ import json
 import time
 import random
 import requests
-from config import DEVICE_IDS, API_ENDPOINT, SEND_INTERVAL_SECONDS
+from stimulator.simulation_config import DEVICE_IDS, API_ENDPOINT, SEND_INTERVAL_SECONDS
 
 def generate_data(device_id):
     data = {

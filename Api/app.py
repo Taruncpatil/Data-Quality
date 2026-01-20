@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from Data_quality.evaluator import evaluate_data_quality
+from data_quality.evaluator import evaluate_data_quality
 from storage.influx_client import write_telemetry
 
 
@@ -28,6 +28,10 @@ def ingest_data():
         "quality_status": quality_result["quality_status"],
         "quality_reason": quality_result["quality_reason"]
     }), 200
+    
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 
 

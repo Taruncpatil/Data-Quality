@@ -2,9 +2,9 @@ from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 INFLUX_URL = "http://localhost:8086"
-INFLUX_TOKEN = "my-secret-token"
-INFLUX_ORG = "my-org"
-INFLUX_BUCKET = "telemetry_bucket"
+INFLUX_TOKEN = "8zzPFueALGRhTaMcDaHK9OUoJDuSY1hXS4-PkBH6qP6yG8ixZZeT2IJWr4jC_D21zwIqJPdFfiG5SYwm8k2BAg=="
+INFLUX_ORG = "project"
+INFLUX_BUCKET = "quality"
 
 client = InfluxDBClient(
     url=INFLUX_URL,
