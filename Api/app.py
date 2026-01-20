@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from Data_quality.evaluator import evaluate_data_quality
+from storage.influx_client import write_telemetry
+
 
 app = Flask(__name__)
 
@@ -11,6 +13,8 @@ def ingest_data():
         return jsonify({"error": "Invalid or missing JSON"}), 400
 
     quality_result = evaluate_data_quality(data)
+
+    write_telemetry(data, quality_result)
 
     if not quality_result["valid"]:
         return jsonify({
